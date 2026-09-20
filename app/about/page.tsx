@@ -44,7 +44,8 @@ import {
   Zap,
   CheckCircle2,
   ExternalLink,
-  ChevronRight
+  ChevronRight,
+  Menu
 } from 'lucide-react';
 
 interface TeamMember {
@@ -186,6 +187,7 @@ const howWeWorkSteps = [
 ];
 
 export default function AboutPage() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<number>(0);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -222,13 +224,42 @@ export default function AboutPage() {
     <div className="relative w-full min-h-screen bg-[#FAF9F6] text-neutral-950 font-sans selection:bg-orange-100 selection:text-orange-950 overflow-x-hidden">
       
       {/* ========================================================================= */}
-      {/* FLOATING TOP NAVIGATION BAR                                               */}
+      {/* FLOATING TOP NAVIGATION BAR (Responsive: Mobile Drawer + Desktop Pill)    */}
       {/* ========================================================================= */}
-      <header className="fixed top-3.5 left-0 w-full z-40 px-4 sm:px-6 pointer-events-none">
-        <div className="max-w-7xl mx-auto flex items-center justify-center">
+      <header className="fixed top-3 left-0 w-full z-40 px-3 sm:px-6 pointer-events-none">
+        <div className="max-w-7xl mx-auto flex items-center justify-between sm:justify-center">
+          
+          {/* Mobile Top Bar (Visible only on < sm) */}
+          <div className="sm:hidden pointer-events-auto flex items-center justify-between w-full bg-black/90 backdrop-blur-md text-white rounded-full px-4 py-2.5 shadow-2xl border border-neutral-800">
+            <Link
+              href="/"
+              className="flex items-center gap-1.5 font-bold text-sm tracking-tight text-white hover:opacity-90 transition-opacity"
+            >
+              <span className="text-[#44DE64] text-base font-black leading-none">✳</span>
+              <span>DevPals</span>
+            </Link>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setIsProjectModalOpen(true)}
+                className="px-3 py-1 text-[11px] font-bold bg-[#44DE64] text-black rounded-full shadow-sm active:scale-95 transition-transform"
+              >
+                Hire Us
+              </button>
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label="Toggle mobile menu"
+                className="p-1.5 rounded-full text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors"
+              >
+                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+            </div>
+          </div>
+
+          {/* Desktop & Tablet Centered Floating Pill Navbar (Visible on >= sm) */}
           <nav
             id="floating-navbar-about"
-            className="pointer-events-auto bg-black text-white rounded-full px-5 sm:px-9 py-2.5 sm:py-3 flex items-center gap-4 sm:gap-7 shadow-2xl border border-neutral-800/80"
+            className="hidden sm:flex pointer-events-auto bg-black text-white rounded-full px-5 sm:px-9 py-2.5 sm:py-3 items-center gap-4 sm:gap-7 shadow-2xl border border-neutral-800/80"
           >
             <Link
               href="/"
@@ -268,8 +299,104 @@ export default function AboutPage() {
               <span className="w-1.5 h-1.5 rounded-full bg-[#44DE64] inline-block"></span>
             </Link>
           </nav>
+
         </div>
       </header>
+
+      {/* Mobile Navigation Drawer Modal */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <div className="fixed inset-0 z-50 sm:hidden">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="absolute inset-0 bg-black/75 backdrop-blur-sm"
+            />
+
+            {/* Slide-Down Menu Box */}
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.96 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+              className="relative z-10 m-4 mt-16 bg-[#0C0D0E] border border-neutral-800 rounded-3xl p-5 shadow-2xl text-white"
+            >
+              <div className="flex items-center justify-between pb-3.5 border-b border-neutral-800">
+                <div className="flex items-center gap-1.5 font-bold text-base text-white">
+                  <span className="text-[#44DE64] text-lg font-black leading-none">✳</span>
+                  <span>DevPals</span>
+                </div>
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-1.5 rounded-full text-neutral-400 hover:text-white hover:bg-neutral-800"
+                  aria-label="Close menu"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="py-4 space-y-1.5">
+                <Link
+                  href="/"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900 transition-colors"
+                >
+                  <span>Home</span>
+                  <ArrowRight className="w-4 h-4 text-neutral-500" />
+                </Link>
+                <Link
+                  href="/about"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-[#44DE64] bg-neutral-900 transition-colors"
+                >
+                  <span>About Us & Team</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#44DE64]" />
+                </Link>
+                <Link
+                  href="/projects"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900 transition-colors"
+                >
+                  <span>Projects Showcase</span>
+                  <ArrowRight className="w-4 h-4 text-neutral-500" />
+                </Link>
+                <Link
+                  href="/#services-section"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900 transition-colors"
+                >
+                  <span>Services</span>
+                  <ArrowRight className="w-4 h-4 text-neutral-500" />
+                </Link>
+                <Link
+                  href="/#contact-section"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900 transition-colors"
+                >
+                  <span>Contact Us</span>
+                  <ArrowRight className="w-4 h-4 text-neutral-500" />
+                </Link>
+              </div>
+
+              <div className="pt-3 border-t border-neutral-800">
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    setIsProjectModalOpen(true);
+                  }}
+                  className="w-full py-3 bg-[#44DE64] text-black font-bold text-sm rounded-full shadow-lg flex items-center justify-center gap-2 hover:bg-[#3be05e] transition-colors"
+                >
+                  <span>Start a Project</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       {/* ========================================================================= */}
       {/* 1. HERO & INTRODUCTION SECTION                                            */}

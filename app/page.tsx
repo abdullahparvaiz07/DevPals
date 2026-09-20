@@ -445,6 +445,7 @@ export default function HomePage() {
   const [selectedTechCategory, setSelectedTechCategory] = useState<TechCategory | null>(null);
   const [hoveredTechId, setHoveredTechId] = useState<string | null>(null);
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -501,21 +502,45 @@ export default function HomePage() {
   const activeShowcaseProject = projectsData[currentProjectIndex];
 
   return (
-    <div className="relative w-full min-h-screen bg-[#FAF9F6] text-neutral-950 font-sans selection:bg-orange-100 selection:text-orange-950">
+    <div className="relative w-full min-h-screen bg-[#FAF9F6] text-neutral-950 font-sans selection:bg-orange-100 selection:text-orange-950 overflow-x-hidden">
       
       {/* ========================================================================= */}
-      {/* FLOATING TOP NAVIGATION BAR (Exact match to contactsection.png reference) */}
+      {/* FLOATING TOP NAVIGATION BAR (Responsive: Mobile Drawer + Desktop Pill)    */}
       {/* ========================================================================= */}
-      {/* ========================================================================= */}
-      {/* FLOATING TOP NAVIGATION BAR (Exact match to target design)              */}
-      {/* ========================================================================= */}
-      <header className="fixed top-3.5 left-0 w-full z-40 px-4 sm:px-6 pointer-events-none">
-        <div className="max-w-7xl mx-auto flex items-center justify-center">
+      <header className="fixed top-3 left-0 w-full z-40 px-3 sm:px-6 pointer-events-none">
+        <div className="max-w-7xl mx-auto flex items-center justify-between sm:justify-center">
           
-          {/* Centered Floating Pill Navbar */}
+          {/* Mobile Top Bar (Visible only on < sm) */}
+          <div className="sm:hidden pointer-events-auto flex items-center justify-between w-full bg-black/90 backdrop-blur-md text-white rounded-full px-4 py-2.5 shadow-2xl border border-neutral-800">
+            <a
+              href="#hero-section"
+              className="flex items-center gap-1.5 font-bold text-sm tracking-tight text-white hover:opacity-90 transition-opacity"
+            >
+              <span className="text-[#44DE64] text-base font-black leading-none">✳</span>
+              <span>DevPals</span>
+            </a>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setIsProjectModalOpen(true)}
+                className="px-3 py-1 text-[11px] font-bold bg-[#44DE64] text-black rounded-full shadow-sm active:scale-95 transition-transform"
+              >
+                Hire Us
+              </button>
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                aria-label="Toggle mobile menu"
+                className="p-1.5 rounded-full text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors"
+              >
+                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+            </div>
+          </div>
+
+          {/* Desktop & Tablet Centered Floating Pill Navbar (Visible on >= sm) */}
           <nav
             id="floating-navbar"
-            className="pointer-events-auto bg-black text-white rounded-full px-6 sm:px-9 py-2.5 sm:py-3 flex items-center gap-5 sm:gap-8 shadow-2xl border border-neutral-800/80"
+            className="hidden sm:flex pointer-events-auto bg-black text-white rounded-full px-6 sm:px-9 py-2.5 sm:py-3 items-center gap-5 sm:gap-8 shadow-2xl border border-neutral-800/80"
           >
             <a
               href="#about-us-section"
@@ -557,12 +582,115 @@ export default function HomePage() {
         </div>
       </header>
 
+      {/* Mobile Navigation Drawer Modal */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <div className="fixed inset-0 z-50 sm:hidden">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="absolute inset-0 bg-black/75 backdrop-blur-sm"
+            />
+
+            {/* Slide-Down Menu Box */}
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.96 }}
+              transition={{ duration: 0.25, ease: 'easeOut' }}
+              className="relative z-10 m-4 mt-16 bg-[#0C0D0E] border border-neutral-800 rounded-3xl p-5 shadow-2xl text-white"
+            >
+              <div className="flex items-center justify-between pb-3.5 border-b border-neutral-800">
+                <div className="flex items-center gap-1.5 font-bold text-base text-white">
+                  <span className="text-[#44DE64] text-lg font-black leading-none">✳</span>
+                  <span>DevPals</span>
+                </div>
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-1.5 rounded-full text-neutral-400 hover:text-white hover:bg-neutral-800"
+                  aria-label="Close menu"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="py-4 space-y-1.5">
+                <a
+                  href="#about-us-section"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900 transition-colors"
+                >
+                  <span>About Us</span>
+                  <ArrowRight className="w-4 h-4 text-neutral-500" />
+                </a>
+                <a
+                  href="#services-section"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900 transition-colors"
+                >
+                  <span>Services</span>
+                  <ArrowRight className="w-4 h-4 text-neutral-500" />
+                </a>
+                <a
+                  href="#projects-section"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900 transition-colors"
+                >
+                  <span>Projects</span>
+                  <ArrowRight className="w-4 h-4 text-neutral-500" />
+                </a>
+                <Link
+                  href="/projects"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900 transition-colors"
+                >
+                  <span>All Projects Showcase</span>
+                  <ExternalLink className="w-4 h-4 text-[#44DE64]" />
+                </Link>
+                <Link
+                  href="/about"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900 transition-colors"
+                >
+                  <span>About Us & Team</span>
+                  <ExternalLink className="w-4 h-4 text-[#44DE64]" />
+                </Link>
+                <a
+                  href="#contact-section"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900 transition-colors"
+                >
+                  <span>Contact Us</span>
+                  <ArrowRight className="w-4 h-4 text-neutral-500" />
+                </a>
+              </div>
+
+              <div className="pt-3 border-t border-neutral-800">
+                <button
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    setIsProjectModalOpen(true);
+                  }}
+                  className="w-full py-3 bg-[#44DE64] text-black font-bold text-sm rounded-full shadow-lg flex items-center justify-center gap-2 hover:bg-[#3be05e] transition-colors"
+                >
+                  <span>Start a Project</span>
+                  <ArrowUpRight className="w-4 h-4" />
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
       {/* ========================================================================= */}
       {/* 1. HERO SECTION                                                          */}
       {/* ========================================================================= */}
       <section
         id="hero-section"
-        className="relative min-h-screen w-full flex flex-col justify-between overflow-hidden bg-[#FAF9F6] pt-16 sm:pt-18 md:pt-20 pb-8 sm:pb-12"
+        className="relative min-h-[92vh] sm:min-h-screen w-full flex flex-col justify-between overflow-hidden bg-[#FAF9F6] pt-16 sm:pt-18 md:pt-20 pb-8 sm:pb-12"
       >
         {/* Top Eyebrow & Main Headline Section */}
         <div className="relative z-20 flex flex-col items-center text-center px-4 sm:px-6 md:px-12 mb-1 sm:mb-2">
@@ -577,7 +705,7 @@ export default function HomePage() {
             >
               <p
                 id="hero-eyebrow"
-                className="text-[11px] sm:text-[12px] md:text-[13px] font-bold tracking-[0.26em] text-neutral-800 uppercase select-none"
+                className="text-[10.5px] sm:text-[12px] md:text-[13px] font-bold tracking-[0.24em] text-neutral-800 uppercase select-none"
               >
                 YOUR IDEAS. A BRIGHTER TOMORROW.
               </p>
@@ -589,7 +717,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="text-[24px] leading-[1.14] sm:text-[34px] md:text-[40px] lg:text-[46px] xl:text-[50px] font-[850] tracking-[-0.03em] text-[#0A0A0A] select-none"
+              className="text-[26px] leading-[1.12] sm:text-[36px] md:text-[42px] lg:text-[48px] xl:text-[52px] font-[850] tracking-[-0.03em] text-[#0A0A0A] select-none"
             >
               <span className="block whitespace-nowrap">
                 Turning Ideas Into
@@ -599,7 +727,7 @@ export default function HomePage() {
                 <span>Digital</span>
 
                 {/* "Products" with hand-drawn 3-stroke radiating burst */}
-                <span className="relative inline-block ml-2 sm:ml-2.5">
+                <span className="relative inline-block ml-1.5 sm:ml-2.5">
                   <span>Products</span>
 
                   {/* Hand-drawn 3-stroke radiating burst doodle */}
@@ -607,7 +735,7 @@ export default function HomePage() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.45, delay: 0.55, ease: 'easeOut' }}
-                    className="absolute -right-6 -top-1 sm:-right-8 sm:-top-1.5 md:-right-9 md:-top-2 lg:-right-10 lg:-top-2.5 w-6 h-6 sm:w-7.5 sm:h-7.5 md:w-9 md:h-9 lg:w-10 lg:h-10 pointer-events-none select-none"
+                    className="absolute -right-5 -top-1 sm:-right-8 sm:-top-1.5 md:-right-9 md:-top-2 lg:-right-10 lg:-top-2.5 w-5 h-5 sm:w-7.5 sm:h-7.5 md:w-9 md:h-9 lg:w-10 lg:h-10 pointer-events-none select-none"
                   >
                     <svg
                       viewBox="0 0 60 60"
@@ -654,7 +782,7 @@ export default function HomePage() {
 
         {/* Center-Bottom Container: VR Female Model Image & Overlaid Action Buttons */}
         <div className="relative z-10 w-full flex-1 flex flex-col items-center justify-end mt-0.5 sm:mt-1">
-          <div className="relative w-full max-w-[500px] sm:max-w-[580px] md:max-w-[640px] flex flex-col items-center justify-end">
+          <div className="relative w-full max-w-[480px] sm:max-w-[580px] md:max-w-[640px] flex flex-col items-center justify-end px-4">
             
             {/* VR Female Model Image */}
             <motion.img
@@ -666,7 +794,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 35 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full h-auto object-contain max-h-[350px] sm:max-h-[410px] md:max-h-[460px] lg:max-h-[490px] select-none pointer-events-none drop-shadow-md"
+              className="w-full h-auto object-contain max-h-[300px] sm:max-h-[410px] md:max-h-[460px] lg:max-h-[490px] select-none pointer-events-none drop-shadow-md"
             />
 
             {/* Overlaid Dual Pill Buttons at the bottom center */}
@@ -674,13 +802,13 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.4 }}
-              className="absolute bottom-4 sm:bottom-6 z-30 flex items-center gap-3 sm:gap-4 p-1.5"
+              className="absolute bottom-3 sm:bottom-6 z-30 flex items-center gap-2.5 sm:gap-4 p-1"
             >
               {/* Vibrant Glowing Lime Green Button */}
               <button
                 id="hero-start-project-pill"
                 onClick={() => setIsProjectModalOpen(true)}
-                className="px-6 py-3 sm:px-8 sm:py-3.5 bg-[#44DE64] text-black font-bold text-xs sm:text-sm md:text-base rounded-full shadow-[0_0_35px_rgba(68,222,100,0.7)] hover:shadow-[0_0_45px_rgba(68,222,100,0.9)] hover:bg-[#3be05e] active:scale-[0.97] transition-all duration-200 cursor-pointer border border-lime-300/40"
+                className="px-4 py-2.5 sm:px-8 sm:py-3.5 bg-[#44DE64] text-black font-bold text-xs sm:text-sm md:text-base rounded-full shadow-[0_0_35px_rgba(68,222,100,0.7)] hover:shadow-[0_0_45px_rgba(68,222,100,0.9)] hover:bg-[#3be05e] active:scale-[0.97] transition-all duration-200 cursor-pointer border border-lime-300/40 whitespace-nowrap"
               >
                 Start Project
               </button>
@@ -689,7 +817,7 @@ export default function HomePage() {
               <a
                 id="hero-our-services-pill"
                 href="#services-section"
-                className="px-6 py-3 sm:px-8 sm:py-3.5 bg-black/85 backdrop-blur-md text-white font-semibold text-xs sm:text-sm md:text-base rounded-full border border-neutral-700/80 shadow-xl hover:bg-black active:scale-[0.97] transition-all duration-200 cursor-pointer"
+                className="px-4 py-2.5 sm:px-8 sm:py-3.5 bg-black/85 backdrop-blur-md text-white font-semibold text-xs sm:text-sm md:text-base rounded-full border border-neutral-700/80 shadow-xl hover:bg-black active:scale-[0.97] transition-all duration-200 cursor-pointer whitespace-nowrap"
               >
                 Our Services
               </a>
@@ -698,29 +826,29 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Floating Left Side Description & CTA Button (Shifted further left) */}
-        <div className="w-full max-w-7xl mx-auto px-6 sm:px-12 md:px-16 lg:px-20 z-20 pb-4 sm:pb-6 lg:pb-0 lg:absolute lg:left-2 xl:left-4 2xl:left-6 lg:top-[44%] lg:-translate-y-1/2 lg:px-0">
+        {/* Floating Left Side Description & CTA Button */}
+        <div className="w-full max-w-7xl mx-auto px-6 sm:px-12 md:px-16 lg:px-20 z-20 pt-4 pb-6 lg:pb-0 lg:pt-0 lg:absolute lg:left-2 xl:left-4 2xl:left-6 lg:top-[44%] lg:-translate-y-1/2 lg:px-0 flex flex-col items-center lg:items-start text-center lg:text-left">
           <motion.div
             id="hero-bottom-content"
             initial={{ opacity: 0, x: -18 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="max-w-[290px] sm:max-w-[320px] text-left"
+            className="max-w-[320px] sm:max-w-[360px] text-center lg:text-left flex flex-col items-center lg:items-start"
           >
             {/* Descriptive copy */}
             <p
               id="hero-description"
-              className="text-[13.5px] sm:text-[14.5px] md:text-[15.5px] leading-[1.54] font-medium text-[#374151] tracking-[-0.01em]"
+              className="text-[13px] sm:text-[14.5px] md:text-[15.5px] leading-[1.54] font-medium text-[#374151] tracking-[-0.01em]"
             >
               DevPals is a software company that designs and builds websites, apps, and digital solutions for forward-thinking brands.
             </p>
 
             {/* Call to action pill button */}
-            <div className="mt-4 sm:mt-5">
+            <div className="mt-3.5 sm:mt-5">
               <button
                 id="start-project-button"
                 onClick={() => setIsProjectModalOpen(true)}
-                className="group inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 bg-black text-white text-[13.5px] sm:text-[14px] font-semibold rounded-full shadow-[0_6px_20px_rgba(0,0,0,0.18)] hover:shadow-[0_10px_28px_rgba(0,0,0,0.26)] hover:bg-[#1A1A1A] active:scale-[0.98] transition-all duration-200 cursor-pointer"
+                className="group inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 bg-black text-white text-[13px] sm:text-[14px] font-semibold rounded-full shadow-[0_6px_20px_rgba(0,0,0,0.18)] hover:shadow-[0_10px_28px_rgba(0,0,0,0.26)] hover:bg-[#1A1A1A] active:scale-[0.98] transition-all duration-200 cursor-pointer"
               >
                 <span>Start a Project</span>
                 <ArrowUpRight
@@ -1974,16 +2102,29 @@ export default function HomePage() {
 
               </div>
 
-              {/* Mobile View Stack Grid (For smaller screens where overlay positions stack) */}
-              <div className="grid grid-cols-2 gap-3 mt-6 md:hidden w-full">
+              {/* Mobile / Tablet View Stack Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 mt-6 md:hidden w-full">
                 {techCategoriesData.map((cat) => (
                   <div
                     key={cat.id}
                     onClick={() => setSelectedTechCategory(cat)}
-                    className="p-3 bg-white rounded-xl border border-neutral-200 shadow-sm cursor-pointer active:scale-95 transition-transform"
+                    className="p-3.5 sm:p-4 bg-white/95 backdrop-blur-sm rounded-2xl border border-neutral-200/90 shadow-xs active:scale-[0.98] transition-all cursor-pointer flex flex-col justify-between hover:border-[#44DE64]/60 hover:shadow-md"
                   >
-                    <h4 className="text-xs font-bold text-black">{cat.title}</h4>
-                    <p className="text-[11px] text-neutral-500 mt-1 leading-tight">{cat.subtitle.join(', ')}</p>
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <h4 className="text-xs sm:text-sm font-bold text-neutral-950 flex items-center gap-1.5">
+                          <span>{cat.title}</span>
+                        </h4>
+                        <span className="w-2 h-2 rounded-full bg-[#44DE64]" />
+                      </div>
+                      <p className="text-[11px] sm:text-xs text-neutral-500 font-medium leading-tight line-clamp-2">
+                        {cat.subtitle.join(' • ')}
+                      </p>
+                    </div>
+                    <div className="mt-3 flex items-center justify-between pt-2 border-t border-neutral-100 text-[10px] font-bold text-neutral-400 uppercase tracking-wider">
+                      <span>Explore</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 text-[#44DE64]" />
+                    </div>
                   </div>
                 ))}
               </div>
