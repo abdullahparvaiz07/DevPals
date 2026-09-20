@@ -239,20 +239,30 @@ export default function AboutPage() {
               <span>DevPals</span>
             </Link>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
               <button
                 onClick={() => setIsProjectModalOpen(true)}
                 className="px-3 py-1 text-[11px] font-bold bg-[#44DE64] text-black rounded-full shadow-sm active:scale-95 transition-transform"
               >
                 Hire Us
               </button>
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                aria-label="Toggle mobile menu"
-                className="p-1.5 rounded-full text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors"
-              >
-                {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-              </button>
+
+              {/* Custom Animated Toggle (From Uiverse.io by vinodjangid07) */}
+              <div className="flex items-center justify-center">
+                <input
+                  type="checkbox"
+                  id="mobile-nav-toggle-about"
+                  className="mobile-toggle-input"
+                  checked={isMobileMenuOpen}
+                  onChange={(e) => setIsMobileMenuOpen(e.target.checked)}
+                  aria-label="Toggle navigation menu"
+                />
+                <label htmlFor="mobile-nav-toggle-about" className="toggle mobile-toggle-label">
+                  <div className="bars mobile-bar-1" id="bar1"></div>
+                  <div className="bars mobile-bar-2" id="bar2"></div>
+                  <div className="bars mobile-bar-3" id="bar3"></div>
+                </label>
+              </div>
             </div>
           </div>
 

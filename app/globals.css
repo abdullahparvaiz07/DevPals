@@ -63,3 +63,82 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* ========================================================================= */
+/* Custom Animated Mobile Navigation Toggle (From Uiverse.io by vinodjangid07)*/
+/* ========================================================================= */
+#checkbox,
+.mobile-toggle-input {
+  display: none;
+}
+
+.toggle,
+.mobile-toggle-label {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition-duration: .5s;
+}
+
+.bars,
+.mobile-toggle-bar {
+  width: 100%;
+  height: 2.5px;
+  background-color: #ffffff;
+  border-radius: 4px;
+  transition-duration: .5s;
+}
+
+#bar2,
+.mobile-bar-2 {
+  transition-duration: .6s;
+}
+
+#bar1, #bar3,
+.mobile-bar-1, .mobile-bar-3 {
+  width: 70%;
+}
+
+#checkbox:checked + .toggle .bars,
+.mobile-toggle-input:checked + .mobile-toggle-label .bars,
+.mobile-toggle-input:checked + .mobile-toggle-label .mobile-toggle-bar {
+  position: absolute;
+  transition-duration: .5s;
+}
+
+#checkbox:checked + .toggle #bar2,
+.mobile-toggle-input:checked + .mobile-toggle-label #bar2,
+.mobile-toggle-input:checked + .mobile-toggle-label .mobile-bar-2 {
+  transform: scaleX(0);
+  opacity: 0;
+  transition-duration: .4s;
+}
+
+#checkbox:checked + .toggle #bar1,
+.mobile-toggle-input:checked + .mobile-toggle-label #bar1,
+.mobile-toggle-input:checked + .mobile-toggle-label .mobile-bar-1 {
+  width: 90%;
+  transform: rotate(45deg);
+  transition-duration: .5s;
+}
+
+#checkbox:checked + .toggle #bar3,
+.mobile-toggle-input:checked + .mobile-toggle-label #bar3,
+.mobile-toggle-input:checked + .mobile-toggle-label .mobile-bar-3 {
+  width: 90%;
+  transform: rotate(-45deg);
+  transition-duration: .5s;
+}
+
+#checkbox:checked + .toggle,
+.mobile-toggle-input:checked + .mobile-toggle-label {
+  transition-duration: .5s;
+  transform: rotate(180deg);
+}
+
