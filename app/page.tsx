@@ -592,103 +592,176 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* Mobile Navigation Drawer Modal */}
+      {/* Mobile Sliding Sidebar Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <div className="fixed inset-0 z-50 sm:hidden">
-            {/* Backdrop */}
+            {/* Backdrop Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="absolute inset-0 bg-black/75 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             />
 
-            {/* Slide-Down Menu Box */}
+            {/* Sliding Sidebar Panel */}
             <motion.div
-              initial={{ opacity: 0, y: -20, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.96 }}
-              transition={{ duration: 0.25, ease: 'easeOut' }}
-              className="relative z-10 m-4 mt-16 bg-[#0C0D0E] border border-neutral-800 rounded-3xl p-5 shadow-2xl text-white"
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 28, stiffness: 280 }}
+              className="absolute top-0 right-0 bottom-0 w-[85%] max-w-[340px] bg-[#0A0B0D] border-l border-neutral-800 text-white flex flex-col justify-between p-6 shadow-2xl overflow-y-auto"
             >
-              <div className="flex items-center justify-between pb-3.5 border-b border-neutral-800">
-                <div className="flex items-center gap-1.5 font-bold text-base text-white">
+              {/* Sidebar Header */}
+              <div className="flex items-center justify-between pb-5 border-b border-neutral-800/80">
+                <a
+                  href="#hero-section"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-1.5 font-bold text-base text-white"
+                >
                   <span className="text-[#44DE64] text-lg font-black leading-none">✳</span>
                   <span>DevPals</span>
+                </a>
+
+                <div className="flex items-center justify-center">
+                  <input
+                    type="checkbox"
+                    id="mobile-sidebar-toggle-close-home"
+                    className="mobile-toggle-input"
+                    checked={isMobileMenuOpen}
+                    onChange={(e) => setIsMobileMenuOpen(e.target.checked)}
+                    aria-label="Close navigation sidebar"
+                  />
+                  <label htmlFor="mobile-sidebar-toggle-close-home" className="toggle mobile-toggle-label">
+                    <div className="bars mobile-bar-1" id="bar1"></div>
+                    <div className="bars mobile-bar-2" id="bar2"></div>
+                    <div className="bars mobile-bar-3" id="bar3"></div>
+                  </label>
                 </div>
-                <button
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="p-1.5 rounded-full text-neutral-400 hover:text-white hover:bg-neutral-800"
-                  aria-label="Close menu"
-                >
-                  <X className="w-5 h-5" />
-                </button>
               </div>
 
-              <div className="py-4 space-y-1.5">
+              {/* Sidebar Navigation Links List */}
+              <div className="py-5 space-y-1.5 flex-1">
+                <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-500 mb-2 px-3">
+                  // NAVIGATION
+                </div>
+
                 <a
                   href="#about-us-section"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900 transition-colors"
+                  className="group flex items-center justify-between px-3.5 py-3 rounded-2xl text-[14.5px] font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900/90 transition-all"
                 >
-                  <span>About Us</span>
-                  <ArrowRight className="w-4 h-4 text-neutral-500" />
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-mono text-[#44DE64]">01</span>
+                    <span>About Us</span>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-neutral-600 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
                 </a>
+
                 <a
                   href="#services-section"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900 transition-colors"
+                  className="group flex items-center justify-between px-3.5 py-3 rounded-2xl text-[14.5px] font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900/90 transition-all"
                 >
-                  <span>Services</span>
-                  <ArrowRight className="w-4 h-4 text-neutral-500" />
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-mono text-[#44DE64]">02</span>
+                    <span>Our Services</span>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-neutral-600 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
                 </a>
+
                 <a
                   href="#projects-section"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900 transition-colors"
+                  className="group flex items-center justify-between px-3.5 py-3 rounded-2xl text-[14.5px] font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900/90 transition-all"
                 >
-                  <span>Projects</span>
-                  <ArrowRight className="w-4 h-4 text-neutral-500" />
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-mono text-[#44DE64]">03</span>
+                    <span>Featured Projects</span>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-neutral-600 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
                 </a>
+
                 <Link
                   href="/projects"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900 transition-colors"
+                  className="group flex items-center justify-between px-3.5 py-3 rounded-2xl text-[14.5px] font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900/90 transition-all"
                 >
-                  <span>All Projects Showcase</span>
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-mono text-[#44DE64]">04</span>
+                    <span>All Projects Showcase</span>
+                  </div>
                   <ExternalLink className="w-4 h-4 text-[#44DE64]" />
                 </Link>
+
                 <Link
                   href="/about"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900 transition-colors"
+                  className="group flex items-center justify-between px-3.5 py-3 rounded-2xl text-[14.5px] font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900/90 transition-all"
                 >
-                  <span>About Us & Team</span>
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-mono text-[#44DE64]">05</span>
+                    <span>Our Team &amp; DNA</span>
+                  </div>
                   <ExternalLink className="w-4 h-4 text-[#44DE64]" />
                 </Link>
+
+                <a
+                  href="#process-section"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="group flex items-center justify-between px-3.5 py-3 rounded-2xl text-[14.5px] font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900/90 transition-all"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-mono text-[#44DE64]">06</span>
+                    <span>Our Process</span>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-neutral-600 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                </a>
+
                 <a
                   href="#contact-section"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900 transition-colors"
+                  className="group flex items-center justify-between px-3.5 py-3 rounded-2xl text-[14.5px] font-semibold text-neutral-200 hover:text-white hover:bg-neutral-900/90 transition-all"
                 >
-                  <span>Contact Us</span>
-                  <ArrowRight className="w-4 h-4 text-neutral-500" />
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-mono text-[#44DE64]">07</span>
+                    <span>Contact &amp; Reviews</span>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-neutral-600 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
                 </a>
               </div>
 
-              <div className="pt-3 border-t border-neutral-800">
+              {/* Sidebar Footer */}
+              <div className="pt-4 border-t border-neutral-800/80 space-y-3.5">
+                {/* Status Badge */}
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900/90 border border-neutral-800 text-[10px] text-neutral-400 font-mono">
+                  <span className="w-2 h-2 rounded-full bg-[#44DE64] animate-pulse" />
+                  <span>ACCEPTING Q3/Q4 SPRINT PROJECTS</span>
+                </div>
+
+                {/* Start Project CTA */}
                 <button
                   onClick={() => {
                     setIsMobileMenuOpen(false);
                     setIsProjectModalOpen(true);
                   }}
-                  className="w-full py-3 bg-[#44DE64] text-black font-bold text-sm rounded-full shadow-lg flex items-center justify-center gap-2 hover:bg-[#3be05e] transition-colors"
+                  className="w-full py-3.5 bg-[#44DE64] text-black font-bold text-sm rounded-full shadow-lg flex items-center justify-center gap-2 hover:bg-[#3be05e] active:scale-95 transition-all"
                 >
                   <span>Start a Project</span>
                   <ArrowUpRight className="w-4 h-4" />
                 </button>
+
+                {/* Email */}
+                <div className="text-center pt-0.5">
+                  <a
+                    href="mailto:hello@devpals.com"
+                    className="text-[11px] font-mono text-neutral-400 hover:text-[#44DE64] transition-colors"
+                  >
+                    hello@devpals.com
+                  </a>
+                </div>
               </div>
             </motion.div>
           </div>

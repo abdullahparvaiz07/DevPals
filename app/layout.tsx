@@ -1,6 +1,7 @@
 import type {Metadata, Viewport} from 'next';
 import {Plus_Jakarta_Sans} from 'next/font/google';
 import './globals.css';
+import Preloader from '@/components/Preloader';
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -39,6 +40,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en" className={plusJakarta.variable}>
       <body className="font-sans antialiased bg-[#FAFAFA] text-neutral-900 selection:bg-orange-100 selection:text-orange-900" suppressHydrationWarning>
+        <Preloader />
         {children}
       </body>
     </html>
