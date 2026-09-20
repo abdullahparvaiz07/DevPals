@@ -10,6 +10,7 @@ import {
   Sparkles,
   X,
   Send,
+  Loader2,
   Code2,
   Cpu,
   Layers,
@@ -271,8 +272,12 @@ export default function ProjectsPage() {
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isProjectSubmitting, setIsProjectSubmitting] = useState(false);
+  const [projectError, setProjectError] = useState<string | null>(null);
+
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [isNewsletterSubmitted, setIsNewsletterSubmitted] = useState(false);
+  const [isNewsletterSubmitting, setIsNewsletterSubmitting] = useState(false);
 
   const filteredProjects = useMemo(() => {
     return allProjectsData.filter((item) => {
@@ -290,23 +295,64 @@ export default function ProjectsPage() {
     });
   }, [selectedCategory, searchQuery]);
 
-  const handleProjectSubmit = (e: React.FormEvent) => {
+  const handleProjectSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setIsProjectModalOpen(false);
-      setFormData({ name: '', email: '', message: '' });
-    }, 2000);
+    setIsProjectSubmitting(true);
+    setProjectError(null);
+
+    try {
+      const data = new FormData(e.currentTarget);
+      data.append("access_key", "dece7f9d-a7c7-4441-985b-0e647c24a363");
+      data.append("from_name", "DevPals Projects Page Inquiry Modal");
+      data.append("subject", `New Project Request from ${formData.name || 'Client'}`);
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: data
+      });
+
+      const res = await response.json();
+      if (res.success) {
+        setIsSubmitted(true);
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setIsProjectModalOpen(false);
+        }, 3000);
+      } else {
+        setProjectError(res.message || "Failed to submit inquiry. Please try again.");
+      }
+    } catch {
+      setProjectError("Network error. Please check your connection and try again.");
+    } finally {
+      setIsProjectSubmitting(false);
+    }
   };
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsNewsletterSubmitted(true);
-    setTimeout(() => {
-      setIsNewsletterSubmitted(false);
+    setIsNewsletterSubmitting(true);
+    try {
+      const data = new FormData(e.currentTarget);
+      data.append("access_key", "dece7f9d-a7c7-4441-985b-0e647c24a363");
+      data.append("from_name", "DevPals Newsletter Subscription");
+      data.append("subject", `New DevPals Subscriber: ${newsletterEmail}`);
+
+      await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: data
+      });
+
+      setIsNewsletterSubmitted(true);
       setNewsletterEmail('');
-    }, 3500);
+      setTimeout(() => {
+        setIsNewsletterSubmitted(false);
+      }, 4000);
+    } catch {
+      setIsNewsletterSubmitted(true);
+    } finally {
+      setIsNewsletterSubmitting(false);
+    }
   };
 
   const scrollToTop = () => {
@@ -870,6 +916,7 @@ export default function ProjectsPage() {
                 ) : (
                   <div className="flex items-center gap-2">
                     <input
+                      name="email"
                       type="email"
                       required
                       placeholder="Enter your email"
@@ -879,9 +926,10 @@ export default function ProjectsPage() {
                     />
                     <button
                       type="submit"
-                      className="px-4 py-2.5 rounded-xl bg-[#44DE64] text-black font-semibold text-xs hover:bg-[#38c454] transition-colors shrink-0 cursor-pointer"
+                      disabled={isNewsletterSubmitting}
+                      className="px-4 py-2.5 rounded-xl bg-[#44DE64] text-black font-semibold text-xs hover:bg-[#38c454] transition-colors shrink-0 cursor-pointer disabled:opacity-70"
                     >
-                      Join
+                      {isNewsletterSubmitting ? 'Joining...' : 'Join'}
                     </button>
                   </div>
                 )}
@@ -1155,11 +1203,18 @@ export default function ProjectsPage() {
                   </div>
 
                   <form onSubmit={handleProjectSubmit} className="space-y-4">
+                    {projectError && (
+                      <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-semibold">
+                        {projectError}
+                      </div>
+                    )}
+
                     <div>
                       <label className="block text-xs font-semibold text-neutral-700 uppercase tracking-wider mb-1.5">
                         Your Name
                       </label>
                       <input
+                        name="name"
                         type="text"
                         required
                         placeholder="Alex Morgan"
@@ -1174,6 +1229,7 @@ export default function ProjectsPage() {
                         Work Email
                       </label>
                       <input
+                        name="email"
                         type="email"
                         required
                         placeholder="alex@company.com"
@@ -1188,6 +1244,7 @@ export default function ProjectsPage() {
                         Project Details & Requirements
                       </label>
                       <textarea
+                        name="message"
                         rows={3}
                         required
                         placeholder="Describe your goals, timeline, and key challenges..."
@@ -1199,10 +1256,20 @@ export default function ProjectsPage() {
 
                     <button
                       type="submit"
-                      className="w-full mt-2 py-3 px-4 rounded-xl bg-neutral-950 text-white font-medium text-sm hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
+                      disabled={isProjectSubmitting}
+                      className="w-full mt-2 py-3 px-4 rounded-xl bg-neutral-950 text-white font-medium text-sm hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md disabled:opacity-75 disabled:cursor-not-allowed"
                     >
-                      <span>Send Project Inquiry</span>
-                      <Send className="w-4 h-4" />
+                      {isProjectSubmitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>Submitting Inquiry...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Send Project Inquiry</span>
+                          <Send className="w-4 h-4" />
+                        </>
+                      )}
                     </button>
                   </form>
                 </>

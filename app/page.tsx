@@ -12,6 +12,7 @@ import {
   Sparkles,
   X,
   Send,
+  Loader2,
   Users,
   Box,
   BarChart3,
@@ -449,22 +450,44 @@ export default function HomePage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isProjectSubmitting, setIsProjectSubmitting] = useState(false);
+  const [projectError, setProjectError] = useState<string | null>(null);
 
   // Inline Contact Section Form State
   const [contactData, setContactData] = useState({ name: '', email: '', message: '' });
   const [isContactSubmitted, setIsContactSubmitted] = useState(false);
+  const [isContactSubmitting, setIsContactSubmitting] = useState(false);
+  const [contactError, setContactError] = useState<string | null>(null);
 
   // Footer Newsletter State
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [isNewsletterSubmitted, setIsNewsletterSubmitted] = useState(false);
+  const [isNewsletterSubmitting, setIsNewsletterSubmitting] = useState(false);
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsNewsletterSubmitted(true);
-    setTimeout(() => {
-      setIsNewsletterSubmitted(false);
+    setIsNewsletterSubmitting(true);
+    try {
+      const data = new FormData(e.currentTarget);
+      data.append("access_key", "dece7f9d-a7c7-4441-985b-0e647c24a363");
+      data.append("from_name", "DevPals Newsletter Subscription");
+      data.append("subject", `New DevPals Subscriber: ${newsletterEmail}`);
+
+      await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: data
+      });
+
+      setIsNewsletterSubmitted(true);
       setNewsletterEmail('');
-    }, 3500);
+      setTimeout(() => {
+        setIsNewsletterSubmitted(false);
+      }, 4000);
+    } catch {
+      setIsNewsletterSubmitted(true);
+    } finally {
+      setIsNewsletterSubmitting(false);
+    }
   };
 
   const scrollToTop = () => {
@@ -473,23 +496,71 @@ export default function HomePage() {
     }
   };
 
-  const handleProjectSubmit = (e: React.FormEvent) => {
+  const handleProjectSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setIsProjectModalOpen(false);
-      setFormData({ name: '', email: '', message: '' });
-    }, 2000);
+    setIsProjectSubmitting(true);
+    setProjectError(null);
+
+    try {
+      const data = new FormData(e.currentTarget);
+      data.append("access_key", "dece7f9d-a7c7-4441-985b-0e647c24a363");
+      data.append("from_name", "DevPals Project Inquiry Modal");
+      data.append("subject", `New Project Request from ${formData.name || 'Client'}`);
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: data
+      });
+
+      const res = await response.json();
+      if (res.success) {
+        setIsSubmitted(true);
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setIsProjectModalOpen(false);
+        }, 3000);
+      } else {
+        setProjectError(res.message || "Failed to submit inquiry. Please try again.");
+      }
+    } catch {
+      setProjectError("Network error. Please check your connection and try again.");
+    } finally {
+      setIsProjectSubmitting(false);
+    }
   };
 
-  const handleContactSubmit = (e: React.FormEvent) => {
+  const handleContactSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsContactSubmitted(true);
-    setTimeout(() => {
-      setIsContactSubmitted(false);
-      setContactData({ name: '', email: '', message: '' });
-    }, 3000);
+    setIsContactSubmitting(true);
+    setContactError(null);
+
+    try {
+      const data = new FormData(e.currentTarget);
+      data.append("access_key", "dece7f9d-a7c7-4441-985b-0e647c24a363");
+      data.append("from_name", "DevPals Contact Form");
+      data.append("subject", `New DevPals Inquiry from ${contactData.name || 'Visitor'}`);
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: data
+      });
+
+      const res = await response.json();
+      if (res.success) {
+        setIsContactSubmitted(true);
+        setContactData({ name: '', email: '', message: '' });
+        setTimeout(() => {
+          setIsContactSubmitted(false);
+        }, 5000);
+      } else {
+        setContactError(res.message || "Failed to send message. Please try again.");
+      }
+    } catch {
+      setContactError("Network error. Please check your connection and try again.");
+    } finally {
+      setIsContactSubmitting(false);
+    }
   };
 
   const handlePrevProject = () => {
@@ -2942,10 +3013,17 @@ export default function HomePage() {
                   onSubmit={handleContactSubmit}
                   className="space-y-4"
                 >
+                  {contactError && (
+                    <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-semibold">
+                      {contactError}
+                    </div>
+                  )}
+
                   {/* 1. Name Input */}
                   <div className="relative rounded-2xl border border-neutral-300 bg-neutral-50/50 px-4 py-3.5 flex items-center justify-between focus-within:border-black focus-within:bg-white focus-within:shadow-xs transition-all">
                     <input
                       id="contact-name-input"
+                      name="name"
                       type="text"
                       required
                       placeholder="Your Name"
@@ -2960,6 +3038,7 @@ export default function HomePage() {
                   <div className="relative rounded-2xl border border-neutral-300 bg-neutral-50/50 px-4 py-3.5 flex items-center justify-between focus-within:border-black focus-within:bg-white focus-within:shadow-xs transition-all">
                     <input
                       id="contact-email-input"
+                      name="email"
                       type="email"
                       required
                       placeholder="Your Email"
@@ -2974,6 +3053,7 @@ export default function HomePage() {
                   <div className="relative rounded-2xl border border-neutral-300 bg-neutral-50/50 px-4 py-3.5 flex items-start justify-between focus-within:border-black focus-within:bg-white focus-within:shadow-xs transition-all">
                     <textarea
                       id="contact-project-input"
+                      name="message"
                       rows={4}
                       required
                       placeholder="Tell us about your project"
@@ -2998,11 +3078,18 @@ export default function HomePage() {
                       <button
                         id="contact-submit-button"
                         type="submit"
-                        className="w-full rounded-full bg-black text-white hover:bg-neutral-800 active:scale-98 transition-all duration-200 flex items-center justify-between pl-6 pr-2 py-2.5 shadow-md group cursor-pointer"
+                        disabled={isContactSubmitting}
+                        className="w-full rounded-full bg-black text-white hover:bg-neutral-800 active:scale-98 transition-all duration-200 flex items-center justify-between pl-6 pr-2 py-2.5 shadow-md group cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
                       >
-                        <span className="font-semibold text-sm sm:text-[15px] tracking-tight">Send Message</span>
+                        <span className="font-semibold text-sm sm:text-[15px] tracking-tight">
+                          {isContactSubmitting ? 'Sending Message...' : 'Send Message'}
+                        </span>
                         <div className="w-10 h-10 rounded-full bg-[#44DE64] text-black flex items-center justify-center group-hover:scale-105 group-hover:bg-[#38c454] transition-all ml-4 shrink-0 shadow-sm">
-                          <ArrowRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
+                          {isContactSubmitting ? (
+                            <Loader2 className="w-5 h-5 animate-spin" />
+                          ) : (
+                            <ArrowRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
+                          )}
                         </div>
                       </button>
                     )}
@@ -3240,6 +3327,7 @@ export default function HomePage() {
                   <form onSubmit={handleNewsletterSubmit} className="flex items-center gap-2">
                     <div className="relative flex-1">
                       <input
+                        name="email"
                         type="email"
                         required
                         placeholder="Enter your email"
@@ -3250,9 +3338,10 @@ export default function HomePage() {
                     </div>
                     <button
                       type="submit"
-                      className="px-5 py-2.5 rounded-full bg-[#44DE64] text-black font-semibold text-xs sm:text-sm hover:bg-[#38c454] active:scale-95 transition-all shrink-0 cursor-pointer shadow-sm"
+                      disabled={isNewsletterSubmitting}
+                      className="px-5 py-2.5 rounded-full bg-[#44DE64] text-black font-semibold text-xs sm:text-sm hover:bg-[#38c454] active:scale-95 transition-all shrink-0 cursor-pointer shadow-sm disabled:opacity-70"
                     >
-                      Subscribe
+                      {isNewsletterSubmitting ? 'Joining...' : 'Subscribe'}
                     </button>
                   </form>
                 )}
@@ -3351,12 +3440,19 @@ export default function HomePage() {
                   </div>
 
                   <form onSubmit={handleProjectSubmit} className="space-y-4">
+                    {projectError && (
+                      <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-semibold">
+                        {projectError}
+                      </div>
+                    )}
+
                     <div>
                       <label htmlFor="name-input" className="block text-xs font-semibold text-neutral-700 uppercase tracking-wider mb-1.5">
                         Your Name
                       </label>
                       <input
                         id="name-input"
+                        name="name"
                         type="text"
                         required
                         placeholder="Alex Morgan"
@@ -3372,6 +3468,7 @@ export default function HomePage() {
                       </label>
                       <input
                         id="email-input"
+                        name="email"
                         type="email"
                         required
                         placeholder="alex@company.com"
@@ -3387,6 +3484,7 @@ export default function HomePage() {
                       </label>
                       <textarea
                         id="message-input"
+                        name="message"
                         rows={3}
                         required
                         placeholder="Describe your goals, timeline, and key challenges..."
@@ -3399,10 +3497,20 @@ export default function HomePage() {
                     <button
                       id="submit-project-button"
                       type="submit"
-                      className="w-full mt-2 py-3 px-4 rounded-xl bg-neutral-950 text-white font-medium text-sm hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                      disabled={isProjectSubmitting}
+                      className="w-full mt-2 py-3 px-4 rounded-xl bg-neutral-950 text-white font-medium text-sm hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
                     >
-                      <span>Send Project Inquiry</span>
-                      <Send className="w-4 h-4" />
+                      {isProjectSubmitting ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>Submitting Inquiry...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Send Project Inquiry</span>
+                          <Send className="w-4 h-4" />
+                        </>
+                      )}
                     </button>
                   </form>
                 </>
