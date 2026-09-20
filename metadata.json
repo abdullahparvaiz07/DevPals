@@ -1,0 +1,6 @@
+{
+  "name": "DevPals - Turning Ideas Into Digital Products",
+  "description": "DevPals is a software company that designs and builds websites, apps, and digital solutions for forward-thinking brands.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
