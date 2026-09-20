@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   ArrowUpRight,
@@ -931,9 +932,9 @@ export default function HomePage() {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="mt-8 sm:mt-10 md:mt-12"
               >
-                <button
+                <Link
                   id="learn-more-button"
-                  onClick={() => setIsAboutModalOpen(true)}
+                  href="/about"
                   className="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 sm:px-7 sm:py-3.5 bg-black text-white text-[14px] sm:text-[15px] font-semibold rounded-full shadow-[0_6px_20px_rgba(0,0,0,0.18)] hover:shadow-[0_10px_28px_rgba(0,0,0,0.26)] hover:bg-[#1A1A1A] active:scale-[0.98] transition-all duration-200 cursor-pointer"
                 >
                   <span>Learn More About Us</span>
@@ -942,7 +943,7 @@ export default function HomePage() {
                     className="w-4 h-4 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200"
                     strokeWidth={2.5}
                   />
-                </button>
+                </Link>
               </motion.div>
 
             </div>
@@ -2855,9 +2856,9 @@ export default function HomePage() {
                 <h4 className="text-xs font-bold text-white uppercase tracking-wider">Navigation</h4>
                 <ul className="space-y-2.5 text-xs sm:text-sm text-neutral-400">
                   <li>
-                    <a href="#about-us-section" className="hover:text-[#44DE64] transition-colors">
+                    <Link href="/about" className="hover:text-[#44DE64] transition-colors">
                       About Us
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a href="#services-section" className="hover:text-[#44DE64] transition-colors">
