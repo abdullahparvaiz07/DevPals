@@ -660,6 +660,9 @@ export default function HomePage() {
             <motion.img
               src="/heroimg.png"
               alt="DevPals VR Model"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
               initial={{ opacity: 0, y: 35 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
@@ -966,6 +969,8 @@ export default function HomePage() {
                   id="about-us-image"
                   src="/aboutusimg.png"
                   alt="DevPals Digital Studio & Team"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-contain object-center transform group-hover:scale-[1.02] transition-transform duration-700 ease-out"
                 />
               </div>
@@ -1126,6 +1131,8 @@ export default function HomePage() {
                 <img
                   src="/swebcard.png"
                   alt="Web Development"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-center rounded-lg transform group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
@@ -1168,6 +1175,8 @@ export default function HomePage() {
                 <img
                   src="/smobilecard.png"
                   alt="Mobile Applications"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-center rounded-lg transform group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
@@ -1210,6 +1219,8 @@ export default function HomePage() {
                 <img
                   src="/saicard.png"
                   alt="AI & Automation"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-center rounded-lg transform group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
@@ -1252,6 +1263,8 @@ export default function HomePage() {
                 <img
                   src="/build.png"
                   alt="Digital Platforms"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-center rounded-lg transform group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
@@ -1294,6 +1307,8 @@ export default function HomePage() {
                 <img
                   src="/sconcard.png"
                   alt="Consulting & Strategy"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-center rounded-lg transform group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
@@ -1485,6 +1500,8 @@ export default function HomePage() {
                 <img
                   src="/discover.png"
                   alt="Discover"
+                  loading="lazy"
+                  decoding="async"
                   className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-500"
                 />
 
@@ -1541,6 +1558,8 @@ export default function HomePage() {
                 <img
                   src="/design.png"
                   alt="Design"
+                  loading="lazy"
+                  decoding="async"
                   className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-500"
                 />
 
@@ -1597,6 +1616,8 @@ export default function HomePage() {
                 <img
                   src="/build.png"
                   alt="Build"
+                  loading="lazy"
+                  decoding="async"
                   className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-500"
                 />
 
@@ -1653,6 +1674,8 @@ export default function HomePage() {
                 <img
                   src="/test.png"
                   alt="Test"
+                  loading="lazy"
+                  decoding="async"
                   className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-500"
                 />
 
@@ -1709,6 +1732,8 @@ export default function HomePage() {
                 <img
                   src="/launch.png"
                   alt="Launch"
+                  loading="lazy"
+                  decoding="async"
                   className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-500"
                 />
 
@@ -1827,6 +1852,8 @@ export default function HomePage() {
                   <img
                     src="/techstackimg.png"
                     alt="DevPals Technology Stack Architecture"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-auto object-contain filter drop-shadow-2xl hover:scale-[1.02] transition-transform duration-500"
                   />
                 </div>
@@ -2048,6 +2075,8 @@ export default function HomePage() {
                 <img
                   src="/server_room.png"
                   alt="Infrastructure & Data Center"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
                 
@@ -3511,6 +3540,8 @@ export default function HomePage() {
                   <img
                     src={selectedProcessStep.image}
                     alt={selectedProcessStep.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0C0D0E] via-transparent to-transparent opacity-60" />
