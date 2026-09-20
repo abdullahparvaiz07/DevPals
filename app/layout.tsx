@@ -23,8 +23,12 @@ export const metadata: Metadata = {
   description:
     'DevPals is a software company that designs and builds websites, apps, and digital solutions for forward-thinking brands.',
   icons: {
-    icon: '/logo.png',
-    apple: '/logo.png',
+    icon: [
+      { url: '/favicon.png' },
+      { url: '/favicon.png', type: 'image/png' },
+    ],
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
   },
   openGraph: {
     title: 'DevPals - Turning Ideas Into Digital Products',
