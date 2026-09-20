@@ -254,7 +254,7 @@ export default function AboutPage() {
             </Link>
 
             <Link
-              href="/#projects-section"
+              href="/projects"
               className="text-xs sm:text-[13.5px] font-semibold text-neutral-300 hover:text-white transition-colors"
             >
               Projects

@@ -73,6 +73,7 @@ interface ProjectDetail {
   client: string;
   techStack: string[];
   metrics: { label: string; val: string }[];
+  liveUrl?: string;
 }
 
 interface ProcessStep {
@@ -371,64 +372,67 @@ const servicesData: ServiceDetail[] = [
 
 const projectsData: ProjectDetail[] = [
   {
-    id: 'wallett',
+    id: 'nexco-japan',
     num: '01',
-    category: 'FINTECH',
-    title: 'WALLETT',
-    subtitle: 'A modern fintech platform for a smarter financial future.',
-    challenge: 'Create a secure, user-friendly platform for modern banking needs.',
-    solution: 'A scalable web and mobile platform with real-time analytics and AI insights.',
-    impact: '100K+ users in 6 months',
+    category: 'AUTOMOTIVE & LOGISTICS',
+    title: 'NEXCO JAPAN',
+    subtitle: 'Global vehicle export, auction bidding, and international logistics platform.',
+    challenge: 'Handle tens of thousands of real-time Japanese auction vehicle listings, complex customs documentation, and international multi-currency logistics across continents.',
+    solution: 'Engineered a lightning-fast Next.js platform with live auction synchronization, automatic multi-currency conversion, and real-time container shipment tracking.',
+    impact: '100K+ Inquiries across 40+ countries',
     description:
-      'Wallett revolutionizes personal and institutional wealth management with ultra-low latency real-time transfers, AI spending recommendations, and deep financial portfolio intelligence.',
-    client: 'Wallett Financial Global',
-    techStack: ['Next.js App Router', 'React Native', 'Tailwind CSS', 'FastAPI & PyTorch', 'Stripe Connect'],
+      'Nexco Japan (nexcojapan.com) is a world-class automotive export and bidding portal connecting international buyers to premium Japanese vehicles with real-time auction feeds, transparent customs clearance, and global ocean freight management.',
+    client: 'Nexco Japan Ltd.',
+    techStack: ['Next.js 15', 'TypeScript', 'Tailwind CSS', 'Node.js', 'PostgreSQL', 'AWS Multi-Region'],
     metrics: [
-      { label: 'Active Users', val: '100K+' },
-      { label: 'Avg Latency', val: '<45ms' },
-      { label: 'Transaction Vol', val: '$42M+' },
-      { label: 'App Rating', val: '4.9 ★' }
-    ]
+      { label: 'Global Reach', val: '40+ Countries' },
+      { label: 'Vehicle Listings', val: '15,000+' },
+      { label: 'Page Speed', val: '0.4s' },
+      { label: 'Customer Trust', val: '99.2%' }
+    ],
+    liveUrl: 'https://nexcojapan.com'
   },
   {
-    id: 'medicare-plus',
+    id: 'sara-store',
     num: '02',
-    category: 'HEALTHCARE',
-    title: 'MediCare+',
-    subtitle: 'A digital healthcare platform connecting patients and doctors.',
-    challenge: 'Bridge the clinical consultation divide with encrypted telemedicine and instant triage scheduling.',
-    solution: 'HIPAA-compliant native mobile ecosystem with real-time video consults and AI diagnostic summaries.',
-    impact: '85K+ consultations conducted',
+    category: 'E-COMMERCE & RETAIL',
+    title: 'SARA STORE',
+    subtitle: 'High-converting modern fashion and lifestyle e-commerce platform.',
+    challenge: 'Replace slow, fragmented shopping carts with an instant-load mobile-first storefront and automated local courier API synchronization.',
+    solution: 'Built a headless high-performance commerce experience featuring instant search, one-click checkout, automated order dispatch, and cart recovery workflows.',
+    impact: '3.8x Conversion rate uplift',
     description:
-      'MediCare+ streamlines the end-to-end patient lifecycle from initial symptom intake to prescription delivery, empowering clinicians with automated charting and patients with 24/7 care.',
-    client: 'MediCare Health Alliance',
-    techStack: ['React Native', 'WebRTC Video', 'TypeScript', 'Node.js', 'HIPAA Cloud Storage'],
+      'Sara Store (sarastore.pk) provides an ultra-smooth retail shopping experience with sub-second page transitions, dynamic cart upsells, and automated parcel tracking for Pakistani shoppers.',
+    client: 'Sara Store Pakistan',
+    techStack: ['Next.js', 'React', 'Tailwind CSS', 'Node.js', 'Payment Gateways', 'Courier Logistics APIs'],
     metrics: [
-      { label: 'Consultations', val: '85K+' },
-      { label: 'Wait Time', val: '-64%' },
-      { label: 'Doctor Network', val: '2,400+' },
-      { label: 'Patient CSAT', val: '98%' }
-    ]
+      { label: 'Monthly Orders', val: '12,500+' },
+      { label: 'Conversion Lift', val: '+280%' },
+      { label: 'Mobile Traffic', val: '88%' },
+      { label: 'Cart Dropoff', val: '-34%' }
+    ],
+    liveUrl: 'https://sarastore.pk'
   },
   {
-    id: 'shopnext',
+    id: 'asadullah-portfolio',
     num: '03',
-    category: 'E-COMMERCE',
-    title: 'ShopNext',
-    subtitle: 'A next-generation e-commerce platform built for scale.',
-    challenge: 'Replace legacy monolithic storefront with a headless, blazing-fast global commerce engine.',
-    solution: 'Distributed edge-rendered commerce storefront featuring 3D product previews and instant checkout.',
-    impact: '3.4x conversion rate uplift',
+    category: 'DIGITAL IDENTITY & SHOWCASE',
+    title: 'ASADULLAH',
+    subtitle: 'Interactive engineering portfolio and personal brand platform.',
+    challenge: 'Create a visually captivating, ultra-fast personal digital experience showcasing complex software engineering achievements and technical mastery.',
+    solution: 'Designed a fluid motion-driven web experience with 3D interactive elements, dynamic project case studies, and 99+ Lighthouse performance score.',
+    impact: '50K+ Global impressions & 99/100 score',
     description:
-      'ShopNext delivers frictionless luxury retail experiences with sub-second page transitions, dynamic personalized catalog curation, and seamless international multi-currency settlement.',
-    client: 'ShopNext Retail Ventures',
-    techStack: ['Next.js 15', 'Shopify Storefront API', 'Tailwind CSS', 'Edge Caching', 'Stripe Billing'],
+      'Asadullah (asadullah.site) is a bespoke digital portfolio engineered to highlight high-end software development, innovative user interfaces, and creative technical leadership.',
+    client: 'Asadullah Parvaiz',
+    techStack: ['Next.js', 'React 19', 'Motion', 'TypeScript', 'Tailwind CSS', 'Vercel Edge'],
     metrics: [
-      { label: 'Conversion Lift', val: '+240%' },
-      { label: 'Page Load Speed', val: '0.4s' },
-      { label: 'Cart Abandonment', val: '-32%' },
-      { label: 'Annual GMV', val: '$68M+' }
-    ]
+      { label: 'Lighthouse Score', val: '99/100' },
+      { label: 'Global Visits', val: '50K+' },
+      { label: 'Interaction Rate', val: '84%' },
+      { label: 'Page Load', val: '<0.3s' }
+    ],
+    liveUrl: 'https://asadullah.site'
   }
 ];
 
@@ -2128,9 +2132,9 @@ export default function HomePage() {
                   transition={{ duration: 0.6, delay: 0.3 }}
                   className="mt-6"
                 >
-                  <button
+                  <Link
                     id="view-all-projects-button"
-                    onClick={() => setIsProjectModalOpen(true)}
+                    href="/projects"
                     className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-black text-white text-[13.5px] sm:text-[14px] font-semibold rounded-full shadow-[0_6px_18px_rgba(0,0,0,0.18)] hover:shadow-[0_10px_24px_rgba(0,0,0,0.26)] hover:bg-[#1A1A1A] active:scale-[0.98] transition-all duration-200 cursor-pointer"
                   >
                     <span>View All Projects</span>
@@ -2138,7 +2142,7 @@ export default function HomePage() {
                       className="w-4 h-4 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200"
                       strokeWidth={2.4}
                     />
-                  </button>
+                  </Link>
                 </motion.div>
               </div>
 
@@ -2166,7 +2170,7 @@ export default function HomePage() {
 
                   <div>
                     <div className="text-[24px] sm:text-[28px] font-extrabold tracking-tight text-neutral-950 leading-none">
-                      95%
+                      99%
                     </div>
                     <div className="text-[11px] sm:text-[12px] font-medium text-neutral-600 leading-tight mt-1">
                       Client<br />Satisfaction
@@ -2197,7 +2201,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right Column: Featured Showcase (Project 01: WALLETT / FINTECH) */}
+            {/* Right Column: Featured Showcase (Project 01: NEXCO JAPAN) */}
             <div className="lg:col-span-8">
               <motion.div
                 key={activeShowcaseProject.id}
@@ -2216,6 +2220,12 @@ export default function HomePage() {
                     <div className="flex items-center gap-2 text-neutral-300 font-bold text-xs tracking-wider">
                       <span>{activeShowcaseProject.num}</span>
                       <span className="w-6 h-[1px] bg-neutral-600" />
+                      {activeShowcaseProject.liveUrl && (
+                        <span className="text-[#44DE64] text-[11px] font-semibold flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#44DE64] animate-ping" />
+                          {activeShowcaseProject.liveUrl.replace('https://', '')}
+                        </span>
+                      )}
                     </div>
                     <span className="px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-700/80 text-[10.5px] font-bold tracking-widest text-neutral-300 uppercase">
                       {activeShowcaseProject.category}
@@ -2225,17 +2235,17 @@ export default function HomePage() {
                   {/* High-Fidelity 3D Laptop + Phone Interactive Mockup */}
                   <div className="relative w-full flex items-center justify-center py-6 sm:py-8 z-10">
                     {/* Laptop Screen & Interface */}
-                    <div className="relative w-full max-w-[500px] bg-[#0A0A0B] rounded-xl border border-neutral-700/80 shadow-2xl p-3 sm:p-4 transform group-hover:scale-[1.02] transition-transform duration-500">
-                      {/* Top Bar of Wallett App */}
+                    <div className="relative w-full max-w-[520px] bg-[#0A0A0B] rounded-xl border border-neutral-700/80 shadow-2xl p-3 sm:p-4 transform group-hover:scale-[1.02] transition-transform duration-500">
+                      {/* Top Bar */}
                       <div className="flex items-center justify-between pb-3 border-b border-neutral-800/80 text-[11px]">
                         <div className="flex items-center gap-2">
                           <span className="w-2.5 h-2.5 rounded-full bg-[#44DE64]" />
-                          <span className="font-bold text-white tracking-tight">Wallett</span>
+                          <span className="font-bold text-white tracking-tight">{activeShowcaseProject.title}</span>
                         </div>
                         <div className="flex items-center gap-3 text-neutral-400 text-[10px]">
-                          <span>Dashboard</span>
-                          <span>Cards</span>
-                          <span>Analytics</span>
+                          <span>Inventory</span>
+                          <span>Auction Bid</span>
+                          <span>Shipping</span>
                         </div>
                       </div>
 
@@ -2244,25 +2254,25 @@ export default function HomePage() {
                         {/* Left headline */}
                         <div className="col-span-5 text-left">
                           <h4 className="text-sm sm:text-base font-extrabold text-white leading-tight">
-                            Your Finances<br />In Your Hands
+                            Global Japanese<br />Vehicle Portal
                           </h4>
                           <p className="text-[9px] sm:text-[10px] text-neutral-400 mt-1">
-                            Simple. Secure. Smarter.
+                            Live Auctions. Direct Export.
                           </p>
                           <div className="mt-3">
                             <span className="inline-block px-3 py-1 bg-[#44DE64] text-black text-[9px] font-bold rounded-full shadow-md">
-                              Get Started
+                              Live Bidding Active
                             </span>
                           </div>
                         </div>
 
-                        {/* Right Area Chart Card */}
+                        {/* Right Area Chart / Inventory Card */}
                         <div className="col-span-7 bg-[#141619] rounded-lg p-2.5 border border-neutral-800">
                           <div className="flex justify-between items-baseline mb-1">
-                            <span className="text-[9px] text-neutral-400">Total Balance</span>
-                            <span className="text-[8px] font-semibold text-[#44DE64]">+12.5% ↗</span>
+                            <span className="text-[9px] text-neutral-400">Live Auction Listings</span>
+                            <span className="text-[8px] font-semibold text-[#44DE64]">15,420+ Cars ↗</span>
                           </div>
-                          <div className="text-sm sm:text-base font-bold text-white">$24,680</div>
+                          <div className="text-sm sm:text-base font-bold text-white">40+ Countries</div>
 
                           {/* Glowing SVG Curve Graph */}
                           <div className="w-full h-12 mt-1">
@@ -2292,51 +2302,46 @@ export default function HomePage() {
                       {/* 4 Bottom Stats */}
                       <div className="mt-3 grid grid-cols-4 gap-1.5 text-center">
                         <div className="p-1 rounded bg-[#15171A] border border-neutral-800/60">
-                          <div className="text-[7.5px] text-neutral-400">Income</div>
-                          <div className="text-[9px] font-bold text-white">$8,610</div>
+                          <div className="text-[7.5px] text-neutral-400">Global Reach</div>
+                          <div className="text-[9px] font-bold text-white">40+ Ports</div>
                         </div>
                         <div className="p-1 rounded bg-[#15171A] border border-neutral-800/60">
-                          <div className="text-[7.5px] text-neutral-400">Expenses</div>
-                          <div className="text-[9px] font-bold text-white">$2,210</div>
+                          <div className="text-[7.5px] text-neutral-400">Latency</div>
+                          <div className="text-[9px] font-bold text-white">&lt;0.4s</div>
                         </div>
                         <div className="p-1 rounded bg-[#15171A] border border-neutral-800/60">
-                          <div className="text-[7.5px] text-neutral-400">Savings</div>
-                          <div className="text-[9px] font-bold text-white">$3,890</div>
+                          <div className="text-[7.5px] text-neutral-400">Yen / USD</div>
+                          <div className="text-[9px] font-bold text-white">Auto-Sync</div>
                         </div>
                         <div className="p-1 rounded bg-[#15171A] border border-neutral-800/60">
-                          <div className="text-[7.5px] text-neutral-400">Investments</div>
-                          <div className="text-[9px] font-bold text-white">$14,230</div>
+                          <div className="text-[7.5px] text-neutral-400">Inspected</div>
+                          <div className="text-[9px] font-bold text-white">100% Verified</div>
                         </div>
                       </div>
                     </div>
 
                     {/* Floating Mobile Companion Mockup */}
-                    <div className="hidden sm:block absolute right-2 sm:right-6 -bottom-2 w-[140px] bg-[#0A0A0B] rounded-[20px] p-2 border-2 border-neutral-700 shadow-2xl transform rotate-[6deg] group-hover:rotate-0 transition-transform duration-500 z-30">
+                    <div className="hidden sm:block absolute right-2 sm:right-4 -bottom-2 w-[145px] bg-[#0A0A0B] rounded-[20px] p-2 border-2 border-neutral-700 shadow-2xl transform rotate-[5deg] group-hover:rotate-0 transition-transform duration-500 z-30">
                       <div className="w-8 h-1.5 bg-black rounded-full mx-auto mb-1.5" />
                       <div className="p-2 bg-neutral-950 rounded-xl text-left border border-neutral-800/80">
-                        <div className="text-[8px] text-neutral-400">Good Morning</div>
-                        <div className="text-[11px] font-bold text-white">$24,680</div>
-                        <div className="mt-2 flex justify-between text-[7px] text-neutral-300">
-                          <span className="p-1 bg-neutral-900 rounded">Send</span>
-                          <span className="p-1 bg-neutral-900 rounded">Receive</span>
-                          <span className="p-1 bg-neutral-900 rounded">More</span>
+                        <div className="text-[8px] text-neutral-400">nexcojapan.com</div>
+                        <div className="text-[10.5px] font-bold text-white">Toyota Land Cruiser</div>
+                        <div className="mt-1 flex justify-between text-[7.5px] text-neutral-300">
+                          <span className="p-0.5 px-1 bg-neutral-900 rounded">Grade 5.0</span>
+                          <span className="p-0.5 px-1 bg-emerald-900/50 text-[#44DE64] rounded">Verified</span>
                         </div>
-                        <div className="mt-2 text-[7.5px] font-semibold text-neutral-400">Recent Activity</div>
-                        <div className="text-[7px] text-neutral-300 flex justify-between mt-1">
-                          <span>Spotify</span>
-                          <span className="text-red-400">-$9.99</span>
-                        </div>
-                        <div className="text-[7px] text-neutral-300 flex justify-between mt-0.5">
-                          <span>Figma</span>
-                          <span className="text-red-400">-$12.00</span>
-                        </div>
+                        <div className="mt-2 text-[7.5px] font-semibold text-neutral-400">Port of Delivery</div>
+                        <div className="text-[7.5px] text-[#44DE64] font-bold">Yokohama ➔ Global</div>
                       </div>
                     </div>
                   </div>
 
                   {/* Subtle hover prompt */}
-                  <div className="z-20 text-right">
-                    <span className="text-[10px] text-neutral-500 group-hover:text-neutral-300 transition-colors uppercase tracking-widest">
+                  <div className="z-20 flex items-center justify-between">
+                    <span className="text-[10px] text-neutral-400 font-mono">
+                      Domain: nexcojapan.com
+                    </span>
+                    <span className="text-[10px] text-[#44DE64] group-hover:text-white transition-colors uppercase tracking-widest font-semibold">
                       Click to explore case study ↗
                     </span>
                   </div>
@@ -2400,11 +2405,11 @@ export default function HomePage() {
           </div>
 
           {/* ========================================================================= */}
-          {/* Bottom Grid: Projects 02 (MediCare+) & 03 (ShopNext)                       */}
+          {/* Bottom Grid: Projects 02 (Sara Store) & 03 (Asadullah)                    */}
           {/* ========================================================================= */}
           <div className="mt-8 sm:mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             
-            {/* Card 02: MediCare+ (HEALTHCARE) */}
+            {/* Card 02: Sara Store (E-COMMERCE & RETAIL) */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -2420,38 +2425,46 @@ export default function HomePage() {
                     <div className="flex items-center gap-2 text-neutral-500 font-bold text-xs">
                       <span>02</span>
                       <span className="w-5 h-[1px] bg-neutral-300" />
+                      <span className="text-[#44DE64] text-[10px] font-mono">sarastore.pk</span>
                     </div>
                     <span className="text-[10px] font-bold tracking-widest text-neutral-500 uppercase">
-                      HEALTHCARE
+                      E-COMMERCE
                     </span>
                   </div>
 
                   <h3 className="text-2xl sm:text-3xl font-extrabold text-neutral-950 tracking-tight mt-6">
-                    MediCare+
+                    Sara Store
                   </h3>
                   <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mt-2">
-                    A digital healthcare platform connecting patients and doctors.
+                    Modern high-converting fashion & retail e-commerce platform with instant checkout.
                   </p>
                 </div>
 
-                <div className="mt-8">
+                <div className="mt-8 flex items-center justify-between">
+                  <div className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full">
+                    +280% Conversion Lift
+                  </div>
                   <div className="w-10 h-10 rounded-full border border-neutral-300 group-hover:border-black group-hover:bg-black group-hover:text-white text-neutral-900 flex items-center justify-center transition-all duration-300">
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                   </div>
                 </div>
               </div>
 
-              {/* Right Visual Column (Dark Textured Phone Mockup) */}
+              {/* Right Visual Column (Modern Storefront Preview) */}
               <div className="relative bg-[#0C0D0E] p-6 flex items-center justify-center overflow-hidden min-h-[240px]">
-                <div className="relative w-[140px] h-[190px] bg-neutral-900 rounded-[22px] p-2 border-[2px] border-neutral-700 shadow-2xl transform rotate-[-8deg] group-hover:rotate-0 group-hover:scale-105 transition-all duration-500">
+                <div className="relative w-[150px] h-[195px] bg-neutral-900 rounded-[22px] p-2 border-[2px] border-neutral-700 shadow-2xl transform rotate-[-6deg] group-hover:rotate-0 group-hover:scale-105 transition-all duration-500">
                   <div className="w-8 h-1.5 bg-black rounded-full mx-auto mb-1.5" />
-                  <div className="w-full h-[150px] bg-white rounded-xl p-2.5 flex flex-col justify-between relative overflow-hidden">
-                    <div className="text-[7.5px] font-bold text-neutral-900">MediCare+</div>
-                    <div className="text-left my-auto">
-                      <div className="text-[10px] font-bold text-neutral-900 leading-tight">Better</div>
-                      <div className="text-[10px] font-bold text-neutral-900 leading-tight">Care</div>
-                      <div className="text-[10px] font-bold text-neutral-900 leading-tight">Brighter</div>
-                      <div className="text-[10px] font-bold text-[#44DE64] leading-tight">Lives</div>
+                  <div className="w-full h-[155px] bg-white rounded-xl p-2.5 flex flex-col justify-between relative overflow-hidden">
+                    <div className="flex items-center justify-between text-[8px] font-bold text-neutral-900">
+                      <span>Sara Store</span>
+                      <span className="text-[#44DE64]">🛍️ Cart (2)</span>
+                    </div>
+                    <div className="text-left my-auto space-y-1">
+                      <div className="text-[9px] font-bold text-neutral-900 leading-tight">Summer Edit &apos;26</div>
+                      <div className="text-[8px] text-neutral-500">Fast National Dispatch</div>
+                      <div className="inline-block text-[7.5px] px-1.5 py-0.5 rounded bg-black text-white font-semibold">
+                        Instant Checkout
+                      </div>
                     </div>
                     {/* Glowing Green Sphere Asset */}
                     <div className="absolute right-0 bottom-0 w-12 h-12 rounded-full bg-[#44DE64] opacity-90 blur-xs shadow-md" />
@@ -2460,7 +2473,7 @@ export default function HomePage() {
               </div>
             </motion.div>
 
-            {/* Card 03: ShopNext (E-COMMERCE) */}
+            {/* Card 03: Asadullah (DIGITAL IDENTITY & SHOWCASE) */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -2476,50 +2489,44 @@ export default function HomePage() {
                     <div className="flex items-center gap-2 text-neutral-500 font-bold text-xs">
                       <span>03</span>
                       <span className="w-5 h-[1px] bg-neutral-300" />
+                      <span className="text-[#44DE64] text-[10px] font-mono">asadullah.site</span>
                     </div>
                     <span className="text-[10px] font-bold tracking-widest text-neutral-500 uppercase">
-                      E-COMMERCE
+                      PORTFOLIO
                     </span>
                   </div>
 
                   <h3 className="text-2xl sm:text-3xl font-extrabold text-neutral-950 tracking-tight mt-6">
-                    ShopNext
+                    Asadullah
                   </h3>
                   <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed mt-2">
-                    A next-generation e-commerce platform built for scale.
+                    Interactive engineering showcase, 3D motion elements, and bespoke portfolio.
                   </p>
                 </div>
 
-                <div className="mt-8">
+                <div className="mt-8 flex items-center justify-between">
+                  <div className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full">
+                    99/100 Lighthouse Score
+                  </div>
                   <div className="w-10 h-10 rounded-full border border-neutral-300 group-hover:border-black group-hover:bg-black group-hover:text-white text-neutral-900 flex items-center justify-center transition-all duration-300">
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                   </div>
                 </div>
               </div>
 
-              {/* Right Visual Column (Streetwear portrait + Dark E-Commerce UI) */}
-              <div className="relative bg-[#0C0D0E] p-6 flex items-center justify-between overflow-hidden min-h-[240px]">
-                {/* Hooded Silhouette Profile */}
-                <div className="relative z-10 flex flex-col items-center">
-                  <div className="w-14 h-16 bg-neutral-900 rounded-t-full border border-neutral-700 shadow-md relative overflow-hidden flex items-center justify-center">
-                    <div className="w-8 h-10 bg-neutral-950 rounded-full mt-2" />
+              {/* Right Visual Column (Dark Terminal / Portfolio UI) */}
+              <div className="relative bg-[#0C0D0E] p-6 flex items-center justify-center overflow-hidden min-h-[240px]">
+                <div className="w-[155px] bg-neutral-900 rounded-xl p-3 border border-neutral-700 shadow-2xl transform rotate-[4deg] group-hover:rotate-0 transition-transform duration-500">
+                  <div className="flex items-center gap-1.5 pb-2 border-b border-neutral-800">
+                    <span className="w-2 h-2 rounded-full bg-red-500/80" />
+                    <span className="w-2 h-2 rounded-full bg-yellow-500/80" />
+                    <span className="w-2 h-2 rounded-full bg-green-500/80" />
+                    <span className="text-[8px] text-neutral-400 ml-auto font-mono">asadullah.site</span>
                   </div>
-                  <div className="w-16 h-12 bg-neutral-950 rounded-t-md" />
-                </div>
-
-                {/* E-Commerce UI Representation */}
-                <div className="z-10 text-right">
-                  <div className="text-[9px] font-bold text-neutral-400 uppercase tracking-wider mb-1">
-                    ShopNext
-                  </div>
-                  <div className="text-xs sm:text-sm font-bold text-white leading-tight">
-                    Next<br />Generation<br />Shopping
-                  </div>
-                  {/* Product Cards Row */}
-                  <div className="mt-2.5 flex items-center justify-end gap-1.5">
-                    <div className="w-6 h-7 rounded bg-neutral-800 border border-neutral-700" />
-                    <div className="w-6 h-7 rounded bg-neutral-800 border border-neutral-700" />
-                    <div className="w-6 h-7 rounded bg-neutral-800 border border-neutral-700" />
+                  <div className="mt-2 text-left space-y-1">
+                    <div className="text-[8px] text-[#44DE64] font-mono">&gt; Asadullah Parvaiz</div>
+                    <div className="text-[9px] font-bold text-white">Full Stack Architect</div>
+                    <div className="text-[7.5px] text-neutral-400 font-mono">Speed: &lt;0.3s | Score: 99</div>
                   </div>
                 </div>
               </div>
@@ -3178,10 +3185,21 @@ export default function HomePage() {
                 <X className="w-5 h-5" />
               </button>
 
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
                 <span className="text-xs font-bold text-[#44DE64] tracking-widest uppercase">
                   Case Study {selectedProject.num} / {selectedProject.category}
                 </span>
+                {selectedProject.liveUrl && (
+                  <a
+                    href={selectedProject.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#44DE64]/20 border border-[#44DE64]/50 text-[#44DE64] text-xs font-bold hover:bg-[#44DE64] hover:text-black transition-all"
+                  >
+                    <span>Visit Live Site</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                )}
               </div>
 
               <h2 className="text-3xl font-extrabold tracking-tight text-white mb-1">
@@ -3235,23 +3253,36 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="mt-8 pt-5 border-t border-neutral-800 flex items-center justify-between">
+              <div className="mt-8 pt-5 border-t border-neutral-800 flex items-center justify-between gap-3">
                 <button
                   onClick={() => setSelectedProject(null)}
                   className="text-xs font-semibold text-neutral-400 hover:text-white transition-colors cursor-pointer"
                 >
                   Close
                 </button>
-                <button
-                  onClick={() => {
-                    setSelectedProject(null);
-                    setIsProjectModalOpen(true);
-                  }}
-                  className="px-5 py-2.5 rounded-full bg-white text-black font-semibold text-xs sm:text-sm hover:bg-[#44DE64] transition-all inline-flex items-center gap-1.5 cursor-pointer shadow-lg"
-                >
-                  <span>Build Something Similar</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </button>
+                <div className="flex items-center gap-3">
+                  {selectedProject.liveUrl && (
+                    <a
+                      href={selectedProject.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-2.5 rounded-full bg-neutral-900 text-neutral-200 border border-neutral-700 font-semibold text-xs sm:text-sm hover:text-white hover:border-neutral-500 transition-all inline-flex items-center gap-1.5"
+                    >
+                      <span>Visit Live</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  )}
+                  <button
+                    onClick={() => {
+                      setSelectedProject(null);
+                      setIsProjectModalOpen(true);
+                    }}
+                    className="px-5 py-2.5 rounded-full bg-white text-black font-semibold text-xs sm:text-sm hover:bg-[#44DE64] transition-all inline-flex items-center gap-1.5 cursor-pointer shadow-lg"
+                  >
+                    <span>Build Something Similar</span>
+                    <ArrowUpRight className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             </motion.div>
           </div>
