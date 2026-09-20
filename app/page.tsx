@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   ArrowUpRight,
@@ -514,9 +515,9 @@ export default function HomePage() {
           <div className="sm:hidden pointer-events-auto flex items-center justify-between w-full bg-black/90 backdrop-blur-md text-white rounded-full px-4 py-2.5 shadow-2xl border border-neutral-800">
             <a
               href="#hero-section"
-              className="flex items-center gap-1.5 font-bold text-sm tracking-tight text-white hover:opacity-90 transition-opacity"
+              className="flex items-center gap-2 font-bold text-sm tracking-tight text-white hover:opacity-90 transition-opacity"
             >
-              <span className="text-[#44DE64] text-base font-black leading-none">✳</span>
+              <Image src="/logo.png" alt="DevPals Logo" width={26} height={26} className="w-6.5 h-6.5 object-contain rounded-md" priority />
               <span>DevPals</span>
             </a>
 
@@ -568,9 +569,9 @@ export default function HomePage() {
             {/* Brand Logo Center */}
             <a
               href="#hero-section"
-              className="flex items-center gap-1.5 font-bold text-sm sm:text-base tracking-tight text-white hover:opacity-90 transition-opacity px-2"
+              className="flex items-center gap-2 font-bold text-sm sm:text-base tracking-tight text-white hover:opacity-90 transition-opacity px-2"
             >
-              <span className="text-[#44DE64] text-base sm:text-lg font-black leading-none">✳</span>
+              <Image src="/logo.png" alt="DevPals Logo" width={28} height={28} className="w-7 h-7 object-contain rounded-md" priority />
               <span>DevPals</span>
             </a>
 
@@ -619,9 +620,9 @@ export default function HomePage() {
                 <a
                   href="#hero-section"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center gap-1.5 font-bold text-base text-white"
+                  className="flex items-center gap-2 font-bold text-base text-white"
                 >
-                  <span className="text-[#44DE64] text-lg font-black leading-none">✳</span>
+                  <Image src="/logo.png" alt="DevPals Logo" width={30} height={30} className="w-7.5 h-7.5 object-contain rounded-md" />
                   <span>DevPals</span>
                 </a>
 
@@ -3029,9 +3030,9 @@ export default function HomePage() {
                   {/* Brand Logo */}
                   <a
                     href="#hero-section"
-                    className="inline-flex items-center gap-2 text-xl font-bold tracking-tight text-white hover:opacity-90 transition-opacity mb-3"
+                    className="inline-flex items-center gap-2.5 text-xl font-bold tracking-tight text-white hover:opacity-90 transition-opacity mb-3"
                   >
-                    <span className="text-[#44DE64] text-2xl font-black leading-none">✳</span>
+                    <Image src="/logo.png" alt="DevPals Logo" width={34} height={34} className="w-8.5 h-8.5 object-contain rounded-lg shadow-sm" />
                     <span>DevPals</span>
                   </a>
 

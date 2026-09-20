@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft, Home, Sparkles } from 'lucide-react';
 
 export default function NotFound() {
@@ -47,8 +48,8 @@ export default function NotFound() {
       </div>
 
       {/* Brand Watermark */}
-      <div className="mt-16 text-xs text-neutral-400 font-semibold flex items-center gap-1.5">
-        <span className="text-[#44DE64]">✳</span>
+      <div className="mt-16 text-xs text-neutral-400 font-semibold flex items-center gap-2">
+        <Image src="/logo.png" alt="DevPals Logo" width={20} height={20} className="w-5 h-5 object-contain rounded-md" />
         <span>DevPals Digital Studio</span>
       </div>
 
